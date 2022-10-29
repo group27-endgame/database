@@ -218,3 +218,65 @@ INSERT INTO [Advella].[dbo].[Categories_Report] VALUES ('Spam');
 INSERT INTO [Advella].[dbo].[Reported_Services] VALUES (1, 1, 1, '2022-09-30 23:59:02', 'finally, a worthy opponent');
 INSERT INTO [Advella].[dbo].[Reported_Products] VALUES (1, 1, 1, '2022-09-30 23:59:02', 'avengers assemble');
 */
+
+-- TRIGGERS CUZ MSSQL IS STUPID
+
+GO
+    CREATE TRIGGER trg_UpdateRegDate
+    ON [Advella].[dbo].[Users]
+    AFTER INSERT
+    AS
+        UPDATE [Advella].[dbo].[Users]
+        SET registration_datetime = GETDATE()
+        WHERE users_id IN (SELECT DISTINCT users_id FROM Inserted)
+GO
+
+GO
+    CREATE TRIGGER trg_ContactUsDate
+    ON [Advella].[dbo].[Contact_Us]
+    AFTER INSERT
+    AS
+        UPDATE [Advella].[dbo].[Contact_Us]
+        SET message_datetime = GETDATE()
+        WHERE contact_us_id IN (SELECT DISTINCT contact_us_id FROM Inserted)
+GO
+
+GO
+    CREATE TRIGGER ServicePostedDate
+    ON [Advella].[dbo].[Task_Services]
+    AFTER INSERT
+    AS
+        UPDATE [Advella].[dbo].[Task_Services]
+        SET service_posted_datetime = GETDATE()
+        WHERE service_id IN (SELECT DISTINCT service_id FROM Inserted)
+GO
+
+GO
+    CREATE TRIGGER ProductPostedDate
+    ON [Advella].[dbo].[Products]
+    AFTER INSERT
+    AS
+        UPDATE [Advella].[dbo].[Products]
+        SET product_posted_datetime = GETDATE()
+        WHERE product_id IN (SELECT DISTINCT product_id FROM Inserted)
+GO
+
+GO
+    CREATE TRIGGER Reported_ServicesDate
+    ON [Advella].[dbo].[Reported_Services]
+    AFTER INSERT
+    AS
+        UPDATE [Advella].[dbo].[Reported_Services]
+        SET reported_datetime = GETDATE()
+        WHERE reported_datetime IN (SELECT DISTINCT reported_datetime FROM Inserted)
+GO
+
+GO
+    CREATE TRIGGER Reported_ProductsDate
+    ON [Advella].[dbo].[Reported_Products]
+    AFTER INSERT
+    AS
+        UPDATE [Advella].[dbo].[Reported_Products]
+        SET reported_datetime = GETDATE()
+        WHERE reported_datetime IN (SELECT DISTINCT reported_datetime FROM Inserted)
+GO
