@@ -18,21 +18,24 @@ drop table [Advella].[dbo].[Roles];
 drop table [Advella].[dbo].[Users];
 */
 
-CREATE DATABASE Advella;
+-- DROP DATABASE --
+alter database [Advella] set single_user with rollback immediate
+drop database Advella
+-- DROP DATABASE --
+
+CREATE DATABASE Advella
 
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Users]') AND type in (N'U'))
 
 CREATE TABLE [Advella].[dbo].[Users](
 	users_id INT IDENTITY PRIMARY KEY,
-	email NCHAR VARYING(100),
-	user_password NCHAR VARYING(100),
-	username NCHAR VARYING(100),
+	email NCHAR VARYING(100) NOT NULL,
+	user_password NCHAR VARYING(100) NOT NULL,
+	username NCHAR VARYING(100) NOT NULL,
 	user_description NCHAR VARYING(200),
 	user_location NCHAR VARYING(100),
-	registration_datetime DATETIME
+	registration_datetime DATETIME DEFAULT GETDATE()
 );
-ALTER TABLE [Advella].[dbo].[Users] ADD CONSTRAINT DF_Users DEFAULT GETDATE() FOR registration_datetime;
-
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Roles]') AND type in (N'U'))
 
 CREATE TABLE [Advella].[dbo].[Roles](
@@ -57,7 +60,7 @@ CREATE TABLE [Advella].[dbo].[Ratings](
 	rating_id INT IDENTITY PRIMARY KEY,
 	users_id INT,
 	rating FLOAT,
-	votes INT,
+	votes INT DEFAULT 0,
 	FOREIGN KEY(users_id) REFERENCES [Advella].[dbo].[Users](users_id)
 );
 
@@ -66,70 +69,64 @@ IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella
 CREATE TABLE [Advella].[dbo].[Contact_Us](
 	contact_us_id INT IDENTITY PRIMARY KEY,
 	users_id INT,
-	message_datetime DATETIME,
+	message_datetime DATETIME DEFAULT GETDATE(),
 	message_content NCHAR VARYING(100),
-	seen BIT,
+	seen BIT DEFAULT 0,
 	FOREIGN KEY(users_id) REFERENCES [Advella].[dbo].[Users](users_id)
 );
-
-ALTER TABLE [Advella].[dbo].[Contact_Us] ADD CONSTRAINT DF_Contact_Us DEFAULT GETDATE() FOR message_datetime;
 --ALTER TABLE [Advella].[dbo].[Contact_Us] ADD seen BIT
 
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Categories_Service]') AND type in (N'U'))
 
 CREATE TABLE [Advella].[dbo].[Categories_Service](
 	category_id INT IDENTITY PRIMARY KEY,
-	category_title NCHAR VARYING(100)
+	category_title NCHAR VARYING(100) NOT NULL
 );
 
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Categories_Product]') AND type in (N'U'))
 
 CREATE TABLE [Advella].[dbo].[Categories_Product](
 	category_id INT IDENTITY PRIMARY KEY,
-	category_title NCHAR VARYING(100)
+	category_title NCHAR VARYING(100) NOT NULL
 );
 
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Task_Services]') AND type in (N'U'))
 
 CREATE TABLE [Advella].[dbo].[Task_Services](
 	service_id INT IDENTITY PRIMARY KEY,
-	service_title NCHAR VARYING(100),
+	service_title NCHAR VARYING(100) NOT NULL,
 	users_id INT,
 	category_id INT,
 	service_detail NCHAR VARYING(200),
-	service_money_amount FLOAT,
+	service_money_amount FLOAT DEFAULT 0,
 	service_duration INT,
-	service_posted_datetime DATETIME,
+	service_posted_datetime DATETIME DEFAULT GETDATE(),
 	service_deadline DATETIME,
 	service_location NCHAR VARYING(100),
-	service_number_of_bids INT,
-	service_number_of_likes INT,
-	service_status NCHAR VARYING(50),
+	service_number_of_bids INT DEFAULT 0,
+	service_number_of_likes INT DEFAULT 0,
+	service_status NCHAR VARYING(50) DEFAULT 'open',
 	FOREIGN KEY(users_id) REFERENCES [Advella].[dbo].[Users](users_id),
 	FOREIGN KEY(category_id) REFERENCES [Advella].[dbo].[Categories_Service](category_id)
 );
-
-ALTER TABLE [Advella].[dbo].[Task_Services] ADD CONSTRAINT DF_Task_Services DEFAULT GETDATE() FOR service_posted_datetime;
 
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Products]') AND type in (N'U'))
 
 CREATE TABLE [Advella].[dbo].[Products](
 	product_id INT IDENTITY PRIMARY KEY,
-	product_title NCHAR VARYING(100),
-	users_id INT,
-	category_id INT,
+	product_title NCHAR VARYING(100) NOT NULL,
+	users_id INT NOT NULL,
+	category_id INT NOT NULL,
 	product_detail NCHAR VARYING(200),
-	product_money_amount FLOAT,
+	product_money_amount FLOAT DEFAULT 0,
 	product_pick_up_location NCHAR VARYING(100),
-	product_posted_datetime DATETIME,
+	product_posted_datetime DATETIME DEFAULT GETDATE(),
 	product_deadline DATETIME,
-	product_number_of_bids INT,
-	product_status NCHAR VARYING(50),
+	product_number_of_bids INT DEFAULT 0,
+	product_status NCHAR VARYING(50) DEFAULT 'open',
 	FOREIGN KEY(users_id) REFERENCES [Advella].[dbo].[Users](users_id),
 	FOREIGN KEY(category_id) REFERENCES [Advella].[dbo].[Categories_Service](category_id)
 );
-
-ALTER TABLE [Advella].[dbo].[Products] ADD CONSTRAINT DF_Products DEFAULT GETDATE() FOR product_posted_datetime;
 
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Bids_Service]') AND type in (N'U'))
 
@@ -177,13 +174,11 @@ CREATE TABLE [Advella].[dbo].[Reported_Services](
 	reported_service_id INT IDENTITY PRIMARY KEY,
 	service_id INT,
 	users_id INT,
-	reported_datetime DATETIME,
+	reported_datetime DATETIME DEFAULT GETDATE(),
 	reason NCHAR VARYING(200),
 	FOREIGN KEY(service_id) REFERENCES [Advella].[dbo].[Task_Services](service_id),
 	FOREIGN KEY(users_id) REFERENCES [Advella].[dbo].[Users](users_id)
 );
-
-ALTER TABLE [Advella].[dbo].[Reported_Services] ADD CONSTRAINT DF_Reported_Services DEFAULT GETDATE() FOR reported_datetime;
 
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Reported_Products]') AND type in (N'U'))
 
@@ -191,13 +186,11 @@ CREATE TABLE [Advella].[dbo].[Reported_Products](
 	reported_product_id INT IDENTITY PRIMARY KEY,
 	product_id INT,
 	users_id INT,
-	reported_datetime DATETIME,
+	reported_datetime DATETIME DEFAULT GETDATE(),
 	reason NCHAR VARYING(200),
 	FOREIGN KEY(product_id) REFERENCES [Advella].[dbo].[Products](product_id),
 	FOREIGN KEY(users_id) REFERENCES [Advella].[dbo].[Users](users_id)
 );
-
-ALTER TABLE [Advella].[dbo].[Reported_Products] ADD CONSTRAINT DF_Reported_Products DEFAULT GETDATE() FOR reported_datetime;
 
 /*
 INSERT INTO [Advella].[dbo].[Users] VALUES ('seymourbutz@butz.com', 'mikehunt', 'seymourbutz', 'wazzup', 'hell', '2022-09-30 23:59:02');--, '2022-09-30 23:59:02');
