@@ -237,7 +237,7 @@ GO
     AFTER INSERT
     AS
         UPDATE [Advella].[dbo].[Contact_Us]
-        SET message_datetime = GETDATE()
+        SET message_datetime = GETDATE(), seen = 0
         WHERE contact_us_id IN (SELECT DISTINCT contact_us_id FROM Inserted)
 GO
 
