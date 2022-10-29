@@ -201,6 +201,7 @@ CREATE TABLE [Advella].[dbo].[Reported_Products](
 	FOREIGN KEY(category_id) REFERENCES [Advella].[dbo].[Categories_Report](category_id)
 );
 
+INSERT INTO Roles VALUES ('user'), ('admin');
 
 /*
 INSERT INTO [Advella].[dbo].[Users] VALUES ('seymourbutz@butz.com', 'mikehunt', 'seymourbutz', 'wazzup', 'hell', '2022-09-30 23:59:02');--, '2022-09-30 23:59:02');
