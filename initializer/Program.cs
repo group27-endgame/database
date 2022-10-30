@@ -13,7 +13,7 @@
             new Category(2, "Phones"),
         };
 
-        int usersAmount = 5000, serviceAmount = 5000, productAmount = 5000;
+        int usersAmount = 60, serviceAmount = 120, productAmount = 120;
         int minPrice = 500, maxPrice = 200000;
         int minBids = 0, maxBids = 50;
 
