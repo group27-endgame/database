@@ -102,7 +102,6 @@ CREATE TABLE [Advella].[dbo].[Task_Services](
 	service_deadline DATETIME,
 	service_location NCHAR VARYING(100),
 	service_number_of_bids INT,
-	service_number_of_likes INT,
 	service_status NCHAR VARYING(50),
 	FOREIGN KEY(users_id) REFERENCES [Advella].[dbo].[Users](users_id),
 	FOREIGN KEY(category_id) REFERENCES [Advella].[dbo].[Categories_Service](category_id)
