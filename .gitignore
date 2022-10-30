@@ -131,4 +131,7 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
-initializer/output
+initializer/output/**
+initializer/output/users.sql
+initializer/output/services.sql
+initializer/output/products.sql
