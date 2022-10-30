@@ -12,7 +12,8 @@ class BidProduct: Bid
 
     public override string toSql()
     {
-        return "INSERT INTO dbo.Bids_Product (product_id, users_id) VALUES " + 
-            $"({this.productId}, {this.userId});";
+        return "INSERT INTO dbo.Bids_Service (product_id, users_id) VALUES " + 
+            $"({this.productId}, {this.userId});\n" +
+            $"UPDATE dbo.Task_Services SET service_number_of_bids = service_number_of_bids+1 WHERE product_id={this.productId};";
     }
 }

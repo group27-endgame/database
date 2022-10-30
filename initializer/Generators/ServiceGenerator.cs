@@ -63,11 +63,13 @@ public class ServiceGenerator
                         servicesCat.Add(servicee.Split(",")[0]);
                 }
 
+                string serviceName = servicesCat[new Random().Next(0, servicesCat.Count)];
+
                 Service service = new Service(
                     ownerId, 
                     randomCategory.getCategoryId(),
-                    servicesCat[new Random().Next(0, servicesCat.Count)],
-                    $"Offering my services for {servicesCat[new Random().Next(0, servicesCat.Count)]}. If you are interested please contact me",
+                    serviceName,
+                    $"Offering my services for {serviceName}. If you are interested please contact me",
                     randomDate,
                     new Random().Next(this.minPrice, this.maxPrice),
                     locations[new Random().Next(0, locations.Length)],

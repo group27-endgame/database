@@ -24,8 +24,9 @@ public class Service: Task
 
     public override string toSql()
     {
-        return $"INSERT INTO dbo.Task_Services (service_title, users_id, category_id, service_detail, service_money_amount, service_pick_up_location, service_posted_datetime, service_status)" +
+        return $"INSERT INTO dbo.Task_Services (service_title, users_id, category_id, service_detail, service_money_amount, service_location, service_number_of_bids, service_status)" +
             $" VALUES " +
-            $"('{this.serviceName}', {this.userId}, {this.categoryId}, '{this.serviceDetail}', {this.price}, '{this.location}', {new DateTimeOffset(this.posted).ToUnixTimeMilliseconds()}, '{this.status}');";
+            $"('{this.serviceName}', {this.userId}, {this.categoryId}, '{this.serviceDetail}', {this.price}, '{this.location}', 0, '{this.status}');\n" +
+            $"UPDATE dbo.Task_Services SET service_posted_datetime = '{this.posted}' WHERE service_title = '{this.serviceName}' AND users_id={this.userId} AND service_money_amount={this.price};";
     }
 }

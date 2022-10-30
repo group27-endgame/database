@@ -63,11 +63,13 @@ public class ProductGenerator
                         productCat.Add(productss.Split(",")[0]);
                 }
 
+                string productName = productCat[new Random().Next(0, productCat.Count)];
+
                 Product product = new Product(
                     ownerId, 
                     randomCategory.getCategoryId(),
-                    productCat[new Random().Next(0, productCat.Count)],
-                    $"Selling {productCat[new Random().Next(0, productCat.Count)]}. If you are interested please contact me",
+                    productName,
+                    $"Selling {productName}. If you are interested please contact me",
                     randomDate,
                     new Random().Next(this.minPrice, this.maxPrice),
                     locations[new Random().Next(0, locations.Length)],
