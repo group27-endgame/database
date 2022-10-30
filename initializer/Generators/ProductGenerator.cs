@@ -35,6 +35,9 @@ public class ProductGenerator
 
     public void generate()
     {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("Staring to Generate Products");
+
         string[] allProducts = File.ReadAllLines("data/products.csv");
         string[] locations = File.ReadAllLines("data/locations.csv");
 
@@ -85,5 +88,7 @@ public class ProductGenerator
                 }
             }
         }
+
+        Console.WriteLine("End of Generating Products");
     }
 }

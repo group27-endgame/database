@@ -9,6 +9,8 @@ public class UserGenerator
 
     public void generate()
     {
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("Staring to Generate Users");
         string[] usernames = File.ReadAllLines("data/users.csv");
         string[] locations = File.ReadAllLines("data/locations.csv");
 
@@ -22,5 +24,6 @@ public class UserGenerator
                 tw.WriteLine(user.toSql());
             }
         }
+        Console.WriteLine("End of Generating Users");
     }
 }

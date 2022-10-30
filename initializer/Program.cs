@@ -13,11 +13,15 @@
             new Category(2, "Phones"),
         };
 
-        int usersAmount = 200, serviceAmount = 200, productAmount = 200;
+        int usersAmount = 5000, serviceAmount = 5000, productAmount = 5000;
+        int minPrice = 500, maxPrice = 200000;
+        int minBids = 0, maxBids = 50;
+
+        DateTime startDate = new DateTime(2022, 6, 1), endDate = new DateTime(2022, 11, 1);
 
         UserGenerator userGenerator = new UserGenerator(usersAmount);
-        ServiceGenerator serviceGenerator = new ServiceGenerator(serviceAmount, usersAmount, 500, 50000, 0, 10, new DateTime(2022, 6, 1), new DateTime(2022, 11, 1), serviceCategories, false);
-        ProductGenerator productGenerator = new ProductGenerator(productAmount, usersAmount, 500, 50000, 0, 10, new DateTime(2022, 6, 1), new DateTime(2022, 11, 1), productCategories, false);
+        ServiceGenerator serviceGenerator = new ServiceGenerator(serviceAmount, usersAmount, minPrice, maxPrice, minBids, maxBids, startDate, endDate, serviceCategories, false);
+        ProductGenerator productGenerator = new ProductGenerator(productAmount, usersAmount, minPrice, maxPrice, minBids, maxBids, startDate, endDate, productCategories, false);
 
         userGenerator.generate();
         serviceGenerator.generate();

@@ -35,6 +35,9 @@ public class ServiceGenerator
 
     public void generate()
     {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Staring to Generate Services");
+
         string[] allServices = File.ReadAllLines("data/services.csv");
         string[] locations = File.ReadAllLines("data/locations.csv");
 
@@ -85,5 +88,6 @@ public class ServiceGenerator
                 }
             }
         }
+        Console.WriteLine("End of Generating Services");
     }
 }
