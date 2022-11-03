@@ -22,6 +22,7 @@ public class UserGenerator
             {
                 User user = new User($"{usernames[i]}@gmail.com", usernames[i], locations[new Random().Next(0, locations.Length)]);
                 tw.WriteLine(user.toSql());
+                tw.WriteLine($"INSERT INTO dbo.Users_Roles ({i/(usernames.Length/amount)}, 1);");
             }
         }
         Console.WriteLine("End of Generating Users");
