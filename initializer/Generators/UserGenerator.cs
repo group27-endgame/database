@@ -20,7 +20,10 @@ public class UserGenerator
             
             for(int i = 0; i<usernames.Length; i+=(usernames.Length/amount))
             {
-                User user = new User($"{usernames[i]}@gmail.com", usernames[i], locations[new Random().Next(0, locations.Length)]);
+                string location = locations[new Random().Next(0, locations.Length)];
+                string city = location.Split(",")[0];
+                string region = location.Split(",")[1];
+                User user = new User($"{usernames[i]}@gmail.com", usernames[i], $"{city}, {region}");
                 tw.WriteLine(user.toSql());
                 tw.WriteLine($"INSERT INTO dbo.Users_Roles ({i/(usernames.Length/amount)}, 1);");
             }

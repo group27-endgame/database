@@ -65,6 +65,10 @@ public class ProductGenerator
 
                 string productName = productCat[new Random().Next(0, productCat.Count)];
 
+                string location = locations[new Random().Next(0, locations.Length)];
+                string city = location.Split(",")[0];
+                string region = location.Split(",")[1];
+
                 Product product = new Product(
                     ownerId, 
                     randomCategory.getCategoryId(),
@@ -72,7 +76,7 @@ public class ProductGenerator
                     $"Selling {productName}. If you are interested please contact me",
                     randomDate,
                     new Random().Next(this.minPrice, this.maxPrice),
-                    locations[new Random().Next(0, locations.Length)],
+                    $"{city}, {region}",
                     statusOpenOnly ? "open" : new Random().Next(0, 2) == 1 ? "open" : "closed"
                 );
 
