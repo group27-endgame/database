@@ -24,9 +24,8 @@ public class Product: Task
 
     public override string toSql()
     {
-        return $"INSERT INTO dbo.Products (product_title, users_id, category_id, product_detail, product_money_amount, product_pick_up_location, product_number_of_bids, product_status)" +
+        return $"INSERT INTO dbo.Products (product_title, users_id, category_id, product_detail, product_money_amount, product_pick_up_location, product_number_of_bids, product_status, product_posted_datetime)" +
             $" VALUES " +
-            $"('{this.productName}', {this.userId}, {this.categoryId}, '{this.productDetail}', {this.price}, '{this.location}', 0, '{this.status}');\n" +
-            $"UPDATE dbo.Products SET product_posted_datetime = '{this.posted}' WHERE product_title = '{this.productName}' AND users_id={this.userId} AND product_money_amount={this.price};";
+            $"('{this.productName}', {this.userId}, {this.categoryId}, '{this.productDetail}', {this.price}, '{this.location}', 0, '{this.status}', '{this.posted}');";
     }
 }
