@@ -69,13 +69,15 @@ public class ProductGenerator
                 string city = location.Split(",")[0];
                 string region = location.Split(",")[1];
 
+                int price = new Random().Next(this.minPrice, this.maxPrice);
+
                 Product product = new Product(
                     ownerId, 
                     randomCategory.getCategoryId(),
                     productName,
                     $"Selling {productName}. If you are interested please contact me",
                     randomDate,
-                    new Random().Next(this.minPrice, this.maxPrice),
+                    price,
                     $"{city}, {region}",
                     statusOpenOnly ? "open" : new Random().Next(0, 2) == 1 ? "open" : "closed"
                 );
@@ -89,7 +91,7 @@ public class ProductGenerator
                         bidderId = new Random().Next(1, this.usersAmount+1);
                     }while(bidderId == ownerId);
 
-                    Bid bidProduct = new BidProduct(i+1, bidderId);
+                    Bid bidProduct = new BidProduct(i+1, bidderId, price + ((i+1) * 100));
                     tw.WriteLine(bidProduct.toSql());
                 }
             }

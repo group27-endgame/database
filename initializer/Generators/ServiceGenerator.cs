@@ -68,13 +68,15 @@ public class ServiceGenerator
                 string city = location.Split(",")[0];
                 string region = location.Split(",")[1];
 
+                int price = new Random().Next(this.minPrice, this.maxPrice)
+
                 Service service = new Service(
                     ownerId, 
                     randomCategory.getCategoryId(),
                     serviceName,
                     $"Offering my services for {serviceName}. If you are interested please contact me",
                     randomDate,
-                    new Random().Next(this.minPrice, this.maxPrice),
+                    price,
                     $"{city}, {region}",
                     statusOpenOnly ? "open" : new Random().Next(0, 2) == 1 ? "open" : "closed"
                 );
@@ -88,7 +90,7 @@ public class ServiceGenerator
                         bidderId = new Random().Next(1, this.usersAmount+1);
                     }while(bidderId == ownerId);
 
-                    Bid bidService = new BidService(i+1, bidderId);
+                    Bid bidService = new BidService(i+1, bidderId, price + ((i+1) * 100));
                     tw.WriteLine(bidService.toSql());
                 }
             }
