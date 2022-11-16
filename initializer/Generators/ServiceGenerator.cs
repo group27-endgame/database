@@ -68,7 +68,7 @@ public class ServiceGenerator
                 string city = location.Split(",")[0];
                 string region = location.Split(",")[1];
 
-                int price = new Random().Next(this.minPrice, this.maxPrice)
+                int price = new Random().Next(this.minPrice, this.maxPrice);
 
                 Service service = new Service(
                     ownerId, 
