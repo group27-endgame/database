@@ -14,6 +14,8 @@ drop table [Advella].[dbo].[Categories_Product];
 drop table [Advella].[dbo].[Categories_Service];
 drop table [Advella].[dbo].[Contact_Us];
 drop table [Advella].[dbo].[Ratings];
+drop table [Advella].[dbo].[Chats_Room];
+drop table [Advella].[dbo].[Chats_Message];
 drop table [Advella].[dbo].[Users_Roles];
 drop table [Advella].[dbo].[Roles];
 drop table [Advella].[dbo].[Users];
@@ -49,6 +51,31 @@ CREATE TABLE [Advella].[dbo].[Users_Roles](
 	role_id INT,
 	FOREIGN KEY(users_id) REFERENCES [Advella].[dbo].[Users](users_id),
 	FOREIGN KEY(role_id) REFERENCES [Advella].[dbo].[Roles](role_id)
+);
+
+IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Chats_Room]') AND type in (N'U'))
+
+CREATE TABLE [Advella].[dbo].[Chats_Room](
+	id INT IDENTITY PRIMARY KEY,
+	chat_id NCHAR VARYING(100),
+	chat_sender_id INT,
+	chat_recipient_id INT,
+	FOREIGN KEY(chat_sender_id) REFERENCES [Advella].[dbo].[Users](users_id),
+	FOREIGN KEY(chat_recipient_id) REFERENCES [Advella].[dbo].[Users](users_id)
+);
+
+IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Chats_Message]') AND type in (N'U'))
+
+CREATE TABLE [Advella].[dbo].[Chats_Message](
+	id INT IDENTITY PRIMARY KEY,
+	chat_id NCHAR VARYING(100),
+	chat_sender_id INT,
+	chat_recipient_id INT,
+	chat_content NCHAR VARYING(256),
+	chat_datetime DATETIME,
+	chat_status NCHAR VARYING(50),
+	FOREIGN KEY(chat_sender_id) REFERENCES [Advella].[dbo].[Users](users_id),
+	FOREIGN KEY(chat_recipient_id) REFERENCES [Advella].[dbo].[Users](users_id)
 );
 
 IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Advella].[dbo].[Ratings]') AND type in (N'U'))
@@ -220,6 +247,12 @@ CREATE TABLE [Advella].[dbo].[Images_Products](
 	FOREIGN KEY(product_id) REFERENCES [Advella].[dbo].[Products](product_id)
 );
 
+/*
+insert into [Advella].[dbo].[Roles] values ('user'), ('admin');
+
+insert into [Advella].[dbo].[Categories_Product] values ('Books'), ('Laptops'), ('Phones');
+insert into [Advella].[dbo].[Categories_Service] values ('Technology'), ('Marketing'), ('Lifestyle');
+*/
 
 /*
 INSERT INTO [Advella].[dbo].[Users] VALUES ('seymourbutz@butz.com', 'mikehunt', 'seymourbutz', 'wazzup', 'hell', '2022-09-30 23:59:02');--, '2022-09-30 23:59:02');
