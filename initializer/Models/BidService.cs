@@ -14,7 +14,7 @@ class BidService: Bid
 
     public override string toSql()
     {
-        return "INSERT INTO dbo.Bids_Service (service_id, users_id, value) VALUES " + 
+        return "INSERT INTO dbo.Bids_Service (service_id, users_id, bid_value) VALUES " + 
             $"({this.serviceId}, {this.userId}, {this.value});\n" +
             $"UPDATE dbo.Task_Services SET service_number_of_bids = service_number_of_bids+1 WHERE service_id = {this.serviceId};";
     }
