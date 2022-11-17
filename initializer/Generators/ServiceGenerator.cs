@@ -90,7 +90,7 @@ public class ServiceGenerator
                         bidderId = new Random().Next(1, this.usersAmount+1);
                     }while(bidderId == ownerId);
 
-                    Bid bidService = new BidService(i+1, bidderId, price + ((i+1) * 100));
+                    Bid bidService = new BidService(i+1, bidderId, price + ((j+1) * 100));
                     tw.WriteLine(bidService.toSql());
                 }
             }
