@@ -91,7 +91,7 @@ public class ProductGenerator
                         bidderId = new Random().Next(1, this.usersAmount+1);
                     }while(bidderId == ownerId);
 
-                    Bid bidProduct = new BidProduct(i+1, bidderId, price + ((i+1) * 100));
+                    Bid bidProduct = new BidProduct(i+1, bidderId, price + ((j+1) * 100));
                     tw.WriteLine(bidProduct.toSql());
                 }
             }
