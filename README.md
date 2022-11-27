@@ -1,7 +1,7 @@
 # database
 
 ## Source Database Conceptual Model
-![image](https://user-images.githubusercontent.com/71009398/202281342-b05edebe-8708-4925-9856-3edee49634a4.png)
+![image](https://user-images.githubusercontent.com/71009398/204150744-34e69b77-54bd-4b5e-9b98-2322de12f9cf.png)
 
 ## Stage Dimensional Model
 ![image](https://user-images.githubusercontent.com/71009398/198858559-3c765cd3-f1a0-487c-9377-0e826d26121a.png)
