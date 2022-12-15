@@ -7,4 +7,4 @@
 ![image](https://user-images.githubusercontent.com/71009398/207811299-5729ec58-5b23-4e4a-a1de-1f3c61ea0d17.png)
 
 ## EDW Dimensional Model
-![image](https://user-images.githubusercontent.com/71009398/198858588-72e3da76-a791-48e6-8b89-b9170af7f6b7.png)
+![image](https://user-images.githubusercontent.com/71009398/207811917-e914a9c0-b086-4326-84d3-f6110d8f7562.png)
